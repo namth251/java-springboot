@@ -5,6 +5,7 @@ import com.sds.spring_boot_tutorial.dto.request.UserUpdateRequest;
 import com.sds.spring_boot_tutorial.entity.User;
 import com.sds.spring_boot_tutorial.exception.AppException;
 import com.sds.spring_boot_tutorial.exception.ErrorCode;
+import com.sds.spring_boot_tutorial.mapper.UserMapper;
 import com.sds.spring_boot_tutorial.repository.UserRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,40 +16,31 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserRepositoty userRepositoty;
+    @Autowired
+    private UserMapper userMapper;
 
     public User createUser(UserCreationRequest request) {
-        User user = new User();
-
-         if(userRepositoty.existsByUsername(request.getUsername())){
-             throw new AppException(ErrorCode.USER_EXISTED);
-         }
-
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+        if (userRepositoty.existsByUsername(request.getUserName())) {
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
+        User user = userMapper.toUser(request);
         return userRepositoty.save((user));
     }
 
     public List<User> getUser() {
-       return userRepositoty.findAll();
+        return userRepositoty.findAll();
     }
-
-    public User getUserById(String userId){
+    public User getUserById(String userId) {
         return userRepositoty.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User updateUser(String userId, UserUpdateRequest request){
+    public User updateUser(String userId, UserUpdateRequest request) {
         User user = getUserById(userId);
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+      userMapper.updateUser(user,request);
         return userRepositoty.save(user);
     }
 
-    public void deleteUser(String userId){
+    public void deleteUser(String userId) {
         userRepositoty.deleteById(userId);
     }
 }
