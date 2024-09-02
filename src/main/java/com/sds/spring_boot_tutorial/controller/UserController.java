@@ -3,6 +3,7 @@ package com.sds.spring_boot_tutorial.controller;
 import com.sds.spring_boot_tutorial.dto.request.ApiResponse;
 import com.sds.spring_boot_tutorial.dto.request.UserCreationRequest;
 import com.sds.spring_boot_tutorial.dto.request.UserUpdateRequest;
+import com.sds.spring_boot_tutorial.dto.response.UserResponse;
 import com.sds.spring_boot_tutorial.entity.User;
 import com.sds.spring_boot_tutorial.service.UserService;
 import jakarta.validation.Valid;
@@ -30,12 +31,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUserById(@PathVariable("userId") String userId){
+    UserResponse getUserById(@PathVariable("userId") String userId){
         return userService.getUserById(userId);
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest request){
+    UserResponse updateUser(@PathVariable("userId") String userId, @RequestBody UserUpdateRequest request){
         return userService.updateUser(userId, request);
     }
 

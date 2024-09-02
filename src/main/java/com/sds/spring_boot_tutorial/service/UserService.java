@@ -2,6 +2,7 @@ package com.sds.spring_boot_tutorial.service;
 
 import com.sds.spring_boot_tutorial.dto.request.UserCreationRequest;
 import com.sds.spring_boot_tutorial.dto.request.UserUpdateRequest;
+import com.sds.spring_boot_tutorial.dto.response.UserResponse;
 import com.sds.spring_boot_tutorial.entity.User;
 import com.sds.spring_boot_tutorial.exception.AppException;
 import com.sds.spring_boot_tutorial.exception.ErrorCode;
@@ -30,14 +31,17 @@ public class UserService {
     public List<User> getUser() {
         return userRepositoty.findAll();
     }
-    public User getUserById(String userId) {
-        return userRepositoty.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+    public UserResponse getUserById(String userId) {
+        return userMapper.toUserResponse(userRepositoty.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found")));
     }
 
-    public User updateUser(String userId, UserUpdateRequest request) {
-        User user = getUserById(userId);
-      userMapper.updateUser(user,request);
-        return userRepositoty.save(user);
+    public UserResponse updateUser(String userId, UserUpdateRequest request) {
+        User user = userRepositoty.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        userMapper.updateUser(user, request);
+        return userMapper.toUserResponse(userRepositoty.save(user));
     }
 
     public void deleteUser(String userId) {
