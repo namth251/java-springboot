@@ -1,6 +1,7 @@
 package com.sds.spring_boot_tutorial.controller;
 
 import com.sds.spring_boot_tutorial.dto.request.ApiResponse;
+import com.sds.spring_boot_tutorial.dto.request.TestLombok;
 import com.sds.spring_boot_tutorial.dto.request.UserCreationRequest;
 import com.sds.spring_boot_tutorial.dto.request.UserUpdateRequest;
 import com.sds.spring_boot_tutorial.dto.response.UserResponse;
@@ -24,9 +25,12 @@ public class UserController {
 
     @PostMapping
     ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
-        ApiResponse<User> apiResponse = new ApiResponse<>();
-        apiResponse.setResult((userService.createUser(request)));
-        return apiResponse;
+        TestLombok testLombok = new TestLombok();
+        testLombok.setName("123");
+        System.out.println("Get name" + testLombok.getName());
+//        ApiResponse<User> apiResponse = new ApiResponse<>();
+//        apiResponse.setResult((userService.createUser(request)));
+        return null;
     }
 
     @GetMapping

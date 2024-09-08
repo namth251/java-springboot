@@ -20,17 +20,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
-    UserRepository userRepository;
-    UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public User createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUserName())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         User user = userMapper.toUser(request);
-        PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder(10);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save((user));
     }
