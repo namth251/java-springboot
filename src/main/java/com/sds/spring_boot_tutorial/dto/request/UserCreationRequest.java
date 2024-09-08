@@ -6,56 +6,19 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequest {
 
     @Size(min = 3, message = "USERNAME_INVALID")
-    String userName;
+    String username;
 
     @Size(min = 8, message = "PASSWORD_INVALID")
     String password;
     String firstName;
     String lastName;
     LocalDate dob;
-
-    public @Size(min = 3, message = "USERNAME_INVALID") String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(@Size(min = 3, message = "USERNAME_INVALID") String userName) {
-        this.userName = userName;
-    }
-
-    public @Size(min = 8, message = "PASSWORD_INVALID") String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@Size(min = 8, message = "PASSWORD_INVALID") String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
 }

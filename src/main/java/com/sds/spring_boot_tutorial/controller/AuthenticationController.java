@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     AuthenticationService authenticationService;
 
-//    @PostMapping("/login")
-//    ApiResponse<AuthenticationResponse> authenticationResponseApiResponse(@RequestBody AuthenticationRequest request) {
-//        boolean result = authenticationService.authenticate(request);
-//        return ApiResponse.<AuthenticationResponse>builder()
-//                .result(AuthenticationResponse.builder()
-//                        .authenticated(result)
-//                        .build())
-//                .build();
-//    }
+    @PostMapping("/login")
+    ApiResponse<AuthenticationResponse> authenticationResponseApiResponse(@RequestBody AuthenticationRequest request) {
+        boolean result = authenticationService.authenticate(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(AuthenticationResponse.builder()
+                        .authenticated(result)
+                        .build())
+                .build();
+    }
 }
