@@ -1,10 +1,5 @@
 package com.sds.spring_boot_tutorial.dto.request;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
-
 import java.time.LocalDate;
 
 

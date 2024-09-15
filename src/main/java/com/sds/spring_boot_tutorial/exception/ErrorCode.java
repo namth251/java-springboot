@@ -6,7 +6,9 @@ public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(405, "Uncategorized error"),
     INVALID_KEY(409, "Invalid message key"),
     USERNAME_INVALID(406, "Username must be at least 3 digits"),
-    USER_NOT_EXISTED(410,"User not existed"),
+    USER_NOT_EXISTED(410, "user not existed"),
+
+    UNAUTHENTICATED(408,"Unauthenticated"),
     PASSWORD_INVALID(407, "Password must be at least 8 digits");
 
 

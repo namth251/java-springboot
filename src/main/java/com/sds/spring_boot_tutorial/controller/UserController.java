@@ -1,7 +1,6 @@
 package com.sds.spring_boot_tutorial.controller;
 
 import com.sds.spring_boot_tutorial.dto.request.ApiResponse;
-import com.sds.spring_boot_tutorial.dto.request.TestLombok;
 import com.sds.spring_boot_tutorial.dto.request.UserCreationRequest;
 import com.sds.spring_boot_tutorial.dto.request.UserUpdateRequest;
 import com.sds.spring_boot_tutorial.dto.response.UserResponse;
