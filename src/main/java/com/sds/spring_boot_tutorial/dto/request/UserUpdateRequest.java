@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class UserUpdateRequest {
     private String password;
-    private  String firstName;
+    private String firstName;
     private String lastName;
     private LocalDate dob;
 
