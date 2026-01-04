@@ -55,11 +55,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
-            <version>9.41.1</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,7 +90,6 @@
             <version>1.5.5.Final</version>
             <scope>provided</scope>
         </dependency>
-
 
 
     </dependencies>

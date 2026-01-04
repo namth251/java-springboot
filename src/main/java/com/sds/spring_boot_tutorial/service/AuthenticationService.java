@@ -45,6 +45,7 @@ public class AuthenticationService {
         var verified = signedJWT.verify(verifier);
         return IntrospectResponse.builder()
                 .valid(verified && expiryTime.after(new Date()))
+                .expiryTime(expiryTime)
                 .build();
     }
 
