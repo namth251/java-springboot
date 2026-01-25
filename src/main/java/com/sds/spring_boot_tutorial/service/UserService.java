@@ -8,6 +8,7 @@ import com.sds.spring_boot_tutorial.enums.Role;
 import com.sds.spring_boot_tutorial.exception.AppException;
 import com.sds.spring_boot_tutorial.exception.ErrorCode;
 import com.sds.spring_boot_tutorial.mapper.UserMapper;
+import com.sds.spring_boot_tutorial.repository.RoleRepository;
 import com.sds.spring_boot_tutorial.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     UserMapper userMapper;
+    RoleRepository roleRepository;
 
     public User createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -47,7 +49,8 @@ public class UserService {
         return userRepository.save((user));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public List<User> getUser() {
         log.info("Print methods get Users!");
         return userRepository.findAll();
@@ -64,12 +67,15 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        var role = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(role));
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     public UserResponse getMyInfo() {
         var context = SecurityContextHolder.getContext();
-       String name =  context.getAuthentication().getName();
+        String name = context.getAuthentication().getName();
         User userInfo = userRepository.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED));
         return userMapper.toUserResponse(userInfo);

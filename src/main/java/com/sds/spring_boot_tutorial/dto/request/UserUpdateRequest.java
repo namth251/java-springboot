@@ -1,50 +1,23 @@
 package com.sds.spring_boot_tutorial.dto.request;
 
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
+import java.util.List;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+@FieldDefaults(level =  AccessLevel.PRIVATE)
 public class UserUpdateRequest {
+
     private String password;
     private String firstName;
     private String lastName;
     private LocalDate dob;
+    List<String> roles;
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public UserUpdateRequest(String password, String firstName, String lastName, LocalDate dob) {
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-    }
 }
