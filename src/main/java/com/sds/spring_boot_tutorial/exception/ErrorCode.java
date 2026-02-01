@@ -13,7 +13,8 @@ public enum ErrorCode {
     USER_NOT_EXISTED(410, "user not existed", HttpStatus.NOT_FOUND),
     UNAUTHENTICATED(408, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     PASSWORD_INVALID(407, "Password must be at least 8 digits", HttpStatus.NOT_FOUND),
-    UNAUTHORIZED(411, "You do not have permission", HttpStatus.FORBIDDEN);
+    UNAUTHORIZED(411, "You do not have permission", HttpStatus.FORBIDDEN),
+    INVALID_DOB(412, "Invalid DOB", HttpStatus.BAD_REQUEST);
 
     ErrorCode(
             int code, String

@@ -21,18 +21,26 @@ public class PermissionService {
     private final PermissionRepository permissionRepository;
     PermissionMapper permissionMapper;
 
-   public PermissionResponse create(PermissionRequest request) {
+    public PermissionResponse create(PermissionRequest request) {
         Permission permission = permissionMapper.toPermission(request);
         permission = permissionRepository.save(permission);
         return permissionMapper.toPermissionResponse(permission);
     }
 
-  public  List<PermissionResponse> getAll() {
+    public List<PermissionResponse> getAll() {
         var permissions = permissionRepository.findAll();
         return permissions.stream().map(permissionMapper::toPermissionResponse).toList();
     }
 
-    public void delete(String permission){
+    public PermissionResponse updatePermission(String permissionId, PermissionRequest request) {
+        Permission permission = permissionRepository.findById(permissionId)
+                .orElseThrow(() -> new RuntimeException("Permission not found!"));
+        permissionMapper.updatePermission(permission, request);
+        return permissionMapper.toPermissionResponse(permissionRepository.save(permission));
+
+    }
+
+    public void delete(String permission) {
         permissionRepository.deleteById(permission);
     }
 }
